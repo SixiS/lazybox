@@ -15,11 +15,21 @@
     settings: $.extend {}, defaults
 
     show: (content, options) ->
+      if $.lazyboxBeforeShow 
+        $.lazyboxBeforeShow()
       options = init(options)
       $('#lazy_body').html(content)
       $('#lazy_overlay').addClass('active')
+      if $.lazyboxAfterShow 
+        $.lazyboxAfterShow()
 
-    close: -> $('#lazy_overlay').removeClass()
+    close: -> 
+      if $.lazyboxBeforeClose 
+        $.lazyboxBeforeClose()
+      $('#lazy_overlay').removeClass()
+      if $.lazyboxAfterClose 
+        $.lazyboxAfterClose()
+
 
     confirm: (element) ->
       options = $.extend defaults, $.lazybox.settings
